@@ -65,7 +65,7 @@ UserSchema.pre('save', async function (next) {
 
     // Hash the password with cost of BCRYPT_WORK_FACTOR
     this.password = await bcrypt.hash(this.password, BCRYPT_WORK_FACTOR);
-    console.log(this.password)
+
     next();
 });
 

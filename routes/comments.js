@@ -1,7 +1,7 @@
 "use strict"
 const express = require("express");
 const router = new express.Router();
-const commentController = require('../controllers/commentController');
+const CommentController = require('../controllers/commentController');
 const { ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
 
 /** Routes for Chore Comments. */
@@ -9,26 +9,26 @@ router
     .route("/chore/:choreId")
     .get(
         ensureLoggedInAndCorrectTeam,
-        commentController.getAllCommentsForChore
+        CommentController.getAllCommentsForChore
     )
     .post(
         ensureLoggedInAndCorrectTeam,
-        commentController.postComment
+        CommentController.postComment
     );
 
 router
     .route('/:id')
     .get(
         ensureLoggedInAndCorrectTeam,
-        commentController.getComment
+        CommentController.getComment
     )
     .patch(
         ensureLoggedInAndCorrectTeam,
-        commentController.updateComment
+        CommentController.updateComment
     )
     .delete(
         ensureLoggedInAndCorrectTeam,
-        commentController.deleteComment
+        CommentController.deleteComment
     );
 
 module.exports = router;

@@ -1,7 +1,7 @@
 "use strict"
 const express = require("express");
 const router = new express.Router();
-const userController = require('./../controllers/userController');
+const UserController = require('./../controllers/userController');
 const { uploadImages } = require('../helpers/handlerFileUpload');
 const { ensureAdminAndCorrectTeam, ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
 
@@ -10,24 +10,24 @@ router
     .route("/")
     .get(
         ensureLoggedInAndCorrectTeam,
-        userController.getAllUsersForTeam
+        UserController.getAllUsersForTeam
     );
 
 router
     .route('/:id')
     .get(
         ensureLoggedInAndCorrectTeam,
-        userController.getUser
+        UserController.getUser
     )
     .patch(
         ensureAdminAndCorrectTeam,
         uploadImages,
-        userController.resizeUserImages,
-        userController.updateUser
+        UserController.resizeUserImages,
+        UserController.updateUser
     )
     .delete(
         ensureAdminAndCorrectTeam,
-        userController.deleteUser
+        UserController.deleteUser
     );
 
 module.exports = router;

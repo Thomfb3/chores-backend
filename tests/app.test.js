@@ -1,6 +1,6 @@
 const request = require("supertest");
 
-const app = require("./app");
+const app = require("../app");
 
 
 test("not found for site 404", async function () {

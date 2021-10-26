@@ -1,0 +1,105 @@
+// const app = require("../../app");
+
+// const mongoose = require('mongoose');
+
+// jest.useFakeTimers();
+
+describe("Have to run one test ", function () {
+    test("works", () => {
+      expect(2).toEqual(2);
+    });
+});
+// /************************************** POST /auth/token */
+// describe("POST api/v1/auth/token", function () {
+//     test("works", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/token")
+//           .send({
+//             username: "u1",
+//             password: "password1",
+//           });
+//       expect(resp.body).toEqual({
+//         "token": expect.any(String),
+//       });
+//     });
+  
+//     test("unauth with non-existent user", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/token")
+//           .send({
+//             username: "no-such-user",
+//             password: "password1",
+//           });
+//       expect(resp.statusCode).toEqual(401);
+//     });
+  
+//     test("unauth with wrong password", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/token")
+//           .send({
+//             username: "u1",
+//             password: "nope",
+//           });
+//       expect(resp.statusCode).toEqual(401);
+//     });
+  
+//     test("bad request with missing data", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/token")
+//           .send({
+//             username: "u1",
+//           });
+//       expect(resp.statusCode).toEqual(400);
+//     });
+  
+//     test("bad request with invalid data", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/token")
+//           .send({
+//             username: 42,
+//             password: "above-is-a-number",
+//           });
+//       expect(resp.statusCode).toEqual(400);
+//     });
+//   });
+
+
+// /************************************** POST /auth/register */
+// describe("POST api/v1/auth/register", function () {
+//     test("works for anon", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/register")
+//           .send({
+//             username: "new",
+//             firstName: "first",
+//             password: "password",
+//             email: "new@email.com",
+//           });
+//       expect(resp.statusCode).toEqual(201);
+//       expect(resp.body).toEqual({
+//         "token": expect.any(String),
+//       });
+//     });
+  
+//     test("bad request with missing fields", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/register")
+//           .send({
+//             username: "new",
+//           });
+//       expect(resp.statusCode).toEqual(400);
+//     });
+  
+//     test("bad request with invalid data", async function () {
+//       const resp = await request(app)
+//           .post("api/v1/auth/register")
+//           .send({
+//             username: "new",
+//             firstName: "first",
+//             password: "password",
+//             email: "not-an-email",
+//           });
+//       expect(resp.statusCode).toEqual(400);
+//     });
+//   });
+  

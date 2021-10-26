@@ -1,7 +1,7 @@
 "use strict"
 const express = require("express");
 const router = new express.Router();
-const rewardController = require('./../controllers/rewardController');
+const RewardController = require('./../controllers/rewardController');
 const { uploadImages } = require('./../helpers/handlerFileUpload');
 const { ensureAdminAndCorrectTeam, ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
 
@@ -10,29 +10,29 @@ router
     .route("/")
     .get(
         ensureLoggedInAndCorrectTeam,
-        rewardController.getAllRewardsForTeam
+        RewardController.getAllRewardsForTeam
     )
     .post(
         ensureAdminAndCorrectTeam,
-        rewardController.createReward
+        RewardController.createReward
     );
 
 router
     .route('/:id')
     .get(
         ensureLoggedInAndCorrectTeam,
-        rewardController.getReward
+        RewardController.getReward
     )
     .patch(
         ensureAdminAndCorrectTeam,
         uploadImages,
-        rewardController.resizeRewardImages,
-        rewardController.updateRewardStatusActivity,
-        rewardController.updateReward
+        RewardController.resizeRewardImages,
+        RewardController.updateRewardStatusActivity,
+        RewardController.updateReward
     )
     .delete(
         ensureAdminAndCorrectTeam,
-        rewardController.deleteReward
+        RewardController.deleteReward
     );
 
 module.exports = router;
