@@ -1,20 +1,12 @@
 const UserController = require("../../controllers/userController");
+const User = require("../../models/user");
 const httpMocks = require("node-mocks-http");
-const UserModel = require("../../models/user");
 const newUser = require("../mock-data/newUser.json");
 
-const deleted = {
-       "data": {
-         "message": "Deleted!",
-       },
-      "status": "success",
-    }
-
-jest.mock("../../models/user");
+jest.mock('../../models/user');
 
 let req, res, next;
 const userId = "5d5ecb5a6e598605f06cb945";
-
 
 beforeEach(() => {
     req = httpMocks.createRequest();
@@ -22,60 +14,42 @@ beforeEach(() => {
     next = jest.fn();
 });
 
-describe("Delete User", () => {
-    it("should have deleteUser function", () => {
-        expect(typeof UserController.deleteUser).toBe("function");
-    });
-    it("should call findByIdAndDelete", async () => {
-        req.params.id = userId;
-        await UserController.deleteUser(req, res, next);
-        expect(UserModel.findByIdAndDelete).toBeCalledWith(userId);
-    });
-    it("should return 200 OK and deleted user", async () => {
-        UserModel.findByIdAndDelete.mockReturnValue(newUser);
-        await UserController.deleteUser(req, res, next);
-        expect(res.statusCode).toBe(200);
-        expect(res._getJSONData()).toStrictEqual(deleted);
-        expect(res._isEndCalled()).toBeTruthy();
-    });
-    it("should handle 404", async () => {
-        req.params.id = "123DUMMY";
-        
-        await UserController.deleteUser(req, res, next);
 
-        //expect(res).toBe(404);
+describe("UserController.createUser", () => {
+    beforeEach(() => {
+        req.body = newUser;
+    });
+
+    it("should have a createTodo function", () => {
+        expect(typeof UserController.createUser).toBe("function");
+    });
+    it("should call TodoModel.create", () => {
+        UserController.createUser(req, res, next);
+        expect(User.create).toBeCalledWith(newUser);
+    });
+    it("should return 201 response code", async () => {
+        await UserController.createUser(req, res, next);
+        expect(res.statusCode).toBe(201);
         expect(res._isEndCalled()).toBeTruthy();
+    });
+    it("should return json body in response", async () => {
+        User.create.mockReturnValue(newUser);
+        await UserController.createUser(req, res, next);
+        expect(res._getJSONData()).toStrictEqual(
+            {
+                status: 'success',
+                data: {
+                    data: newUser
+                }
+            }
+        );
+    });
+    it("should handle errors", async () => {
+        const errorMessage = { message: "Done property missing" };
+        const rejectedPromise = Promise.reject(errorMessage);
+
+        User.create.mockReturnValue(rejectedPromise);
+        await UserController.createUser(req, res, next);
+        expect(next).toBeCalledWith(errorMessage);
     });
 });
-
-
-describe("Delete User", () => {
-    it("should have deleteUser function", () => {
-        expect(typeof UserController.deleteUser).toBe("function");
-    });
-    it("should call findByIdAndDelete", async () => {
-        req.params.id = userId;
-        await UserController.deleteUser(req, res, next);
-        expect(UserModel.findByIdAndDelete).toBeCalledWith(userId);
-    });
-    it("should return 200 OK and deleted user", async () => {
-        UserModel.findByIdAndDelete.mockReturnValue(newUser);
-        await UserController.deleteUser(req, res, next);
-        expect(res.statusCode).toBe(200);
-        expect(res._getJSONData()).toStrictEqual(deleted);
-        expect(res._isEndCalled()).toBeTruthy();
-    });
-    it("should handle 404", async () => {
-        req.params.id = "123DUMMY";
-        
-        await UserController.deleteUser(req, res, next);
-  
-        //expect(res).toBe(404);
-        expect(res._isEndCalled()).toBeTruthy();
-    });
-});
-
-
-
-
-
