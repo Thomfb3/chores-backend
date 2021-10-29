@@ -1,0 +1,12 @@
+{
+    "title": "Clean the bathroom",
+    "description": "cleant the bathroom",
+    "pointValue": 100,
+    "assigner": "61722f1f7b4914ef4000a533",
+    "assignee": "617230057b4914ef4000a53e",
+    "createdBy": "61722f1f7b4914ef4000a533",
+    "status": "open",
+    "imageUrl": "default-chore.jpg",
+    "teamId": "61722f587b4914ef4000a536",
+    "type": "template"
+}

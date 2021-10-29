@@ -1,0 +1,17 @@
+{
+    "title": "Get $5 bucks!",
+    "description": "Get five bucks cash from the sponsor.",
+    "pointsNeeded": 500,
+    "sponsor": "61722f1f7b4914ef4000a533",
+    "createdBy": "61722f1f7b4914ef4000a533",
+    "status": "open",
+    "imageCover": "default-reward.jpg",
+    "teamId": "61722f587b4914ef4000a536",
+    "type": "template",
+    "activity": [
+        {
+        "user": "61722f1f7b4914ef4000a533",
+        "event": "Reward created"
+        }
+    ]
+}
