@@ -24,6 +24,22 @@ exports.createChore = async (req, res, next) => {
     }
 };
 
+exports.getAllChoresForUser = async (req, res, next) => {
+    try {
+        const userId = req.params.id
+        const chores = await Chore.find({ assignee: userId })
+
+        res.status(201).json({
+            status: 'success',
+            data: {
+                data: chores
+            }
+        });
+    } catch (err) {
+        next(err)
+    }
+};
+
 //Other chore route functions
 exports.resizeChoreImages = resizeImages("chores");
 exports.getAllChoresForTeam = factory.getAllPerTeam(Chore);

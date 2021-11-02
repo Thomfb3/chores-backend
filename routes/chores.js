@@ -18,10 +18,10 @@ router
     );
 
 router
-    .route("user/:userid")
+    .route("/user/:id")
     .get(
         ensureLoggedInAndCorrectTeam,
-        ChoreController.getAllChoresForTeam
+        ChoreController.getAllChoresForUser
     );
 
 router
