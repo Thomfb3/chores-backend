@@ -13,6 +13,7 @@ const authRoutes = require("./routes/auth");
 const rewardsRoutes = require("./routes/rewards");
 const choresRoutes = require("./routes/chores");
 const usersRoutes = require("./routes/users");
+const teamsRoutes = require("./routes/teams");
 const commentRoutes = require("./routes/comments");
 const morgan = require("morgan");
 const app = express();
@@ -36,6 +37,7 @@ app.use(authenticateJWT);
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/teams", teamsRoutes);
 app.use("/api/v1/chores", choresRoutes);
 app.use("/api/v1/rewards", rewardsRoutes);
 app.use("/api/v1/comments", commentRoutes);
