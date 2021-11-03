@@ -3,7 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const UserController = require('./../controllers/userController');
 const { uploadImages } = require('../helpers/handlerFileUpload');
-const { ensureAdminAndCorrectTeam, ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
+const { ensureLoggedIn, ensureAdminAndCorrectTeam, ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
 
 /** Routes for users. */
 router
@@ -16,7 +16,7 @@ router
 router
     .route('/:id')
     .get(
-        ensureLoggedInAndCorrectTeam,
+        ensureLoggedIn,
         UserController.getUser
     )
     .patch(

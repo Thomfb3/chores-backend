@@ -2,13 +2,13 @@
 const express = require("express");
 const router = new express.Router();
 const TeamController = require('./../controllers/teamController');
-const { ensureAdminAndCorrectTeam, ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
+const { ensureLoggedIn, ensureAdminAndCorrectTeam, ensureLoggedInAndCorrectTeam } = require("../middleware/auth.js");
 
 /** Routes for Teams. */
 router
     .route('/:id')
     .get(
-        ensureLoggedInAndCorrectTeam,
+        ensureLoggedIn,
         TeamController.getTeam
     )
     .patch(
