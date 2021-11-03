@@ -50,6 +50,9 @@ const ChoreSchema = new mongoose.Schema({
         default: Date.now(),
         select: false
     },
+    dueDate: {
+        type: Date
+    },
     status: {
         type: String,
         required: [true, "A chore must have a status"]

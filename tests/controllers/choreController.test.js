@@ -49,7 +49,7 @@ describe("ChoreController.getChore", () => {
         Chore.findById.mockReturnValue(newChore);
         await ChoreController.getChore(req, res, next);
         expect(res.statusCode).toBe(200);
-        expect(res._getJSONData().data.data.title).toContain(newChore.title);
+        expect(res._getJSONData().data.title).toContain(newChore.title);
         expect(res._isEndCalled()).toBeTruthy();
     });
 });
@@ -86,7 +86,7 @@ describe("ChoreController.updateChore", () => {
         await ChoreController.updateChore(req, res, next);
         expect(res._isEndCalled()).toBeTruthy();
         expect(res.statusCode).toBe(200);
-        expect(res._getJSONData().data.data.title).toContain(newChore.title);
+        expect(res._getJSONData().data.title).toContain(newChore.title);
     });
 });
 

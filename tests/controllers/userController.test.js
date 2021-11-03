@@ -40,9 +40,7 @@ describe("UserController.createUser", () => {
         expect(res._getJSONData()).toStrictEqual(
             {
                 status: 'success',
-                data: {
-                    data: newUser
-                }
+                data: newUser
             }
         );
         expect(res._isEndCalled()).toBeTruthy();
@@ -64,7 +62,7 @@ describe("UserController.getUser", () => {
     it("should call User Model create", async () => {
         req.params.id = userId;
         await UserController.getUser(req, res, next);
-        expect(User.findById).toBeCalledWith(userId);
+        expect(User.findById).toBeCalledWith(userId, "_id username firstName lastName points role profileImage");
     });
     it("should return json body and response code 200", async () => {
         User.findById.mockReturnValue(newUser);
@@ -73,9 +71,7 @@ describe("UserController.getUser", () => {
         expect(res._getJSONData()).toStrictEqual(
             {
                 status: 'success',
-                data: {
-                    data: newUser
-                }
+                data:  newUser
             }
         );
         expect(res._isEndCalled()).toBeTruthy();
@@ -134,9 +130,7 @@ describe("UserController.updateUser", () => {
         expect(res._getJSONData()).toStrictEqual(
             {
                 status: 'success',
-                data: {
-                    data: newUser
-                }
+                data:  newUser
             }
         );
     });

@@ -18,6 +18,17 @@ router
     );
 
 router
+    .route("/unclaimed")
+    .get(
+        ensureLoggedInAndCorrectTeam,
+        ChoreController.getUnclaimedChoresForTeam
+    )
+    .post(
+        ensureAdminAndCorrectTeam,
+        ChoreController.createChore
+    );
+
+router
     .route("/user/:id")
     .get(
         ensureLoggedInAndCorrectTeam,

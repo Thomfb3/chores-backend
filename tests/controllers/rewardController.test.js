@@ -49,7 +49,8 @@ describe("RewardController.getReward", () => {
         Reward.findById.mockReturnValue(newReward);
         await RewardController.getReward(req, res, next);
         expect(res.statusCode).toBe(200);
-        expect(res._getJSONData().data.data.title).toContain(newReward.title);
+        console.log(res._getJSONData().data)
+        expect(res._getJSONData().data.title).toContain(newReward.title);
         expect(res._isEndCalled()).toBeTruthy();
     });
 });
@@ -86,7 +87,7 @@ describe("RewardController.updateReward", () => {
         await RewardController.updateReward(req, res, next);
         expect(res._isEndCalled()).toBeTruthy();
         expect(res.statusCode).toBe(200);
-        expect(res._getJSONData().data.data.title).toContain(newReward.title);
+        expect(res._getJSONData().data.title).toContain(newReward.title);
     });
 });
 
