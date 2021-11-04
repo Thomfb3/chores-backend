@@ -50,7 +50,8 @@ exports.createTeamAndGetToken = catchAsync(async (req, res, next) => {
         const newTeam = await Team.create({ name: teamName, password: teamPassword, users: [user] });
         //Add team to user and make user admin
         const updatedUser = await User.findByIdAndUpdate({ _id: user._id },
-            { $set: { teamId: newTeam, role: "admin" } });
+            { $set: { teamId: newTeam, role: "admin" } }, {new: true});
+    
         //Return token with teamId now added
         const token = createToken(updatedUser);
         return res.status(201).json({ token });
@@ -74,13 +75,13 @@ exports.joinTeamAndGetToken = catchAsync(async (req, res, next) => {
         if (authenticated) {
             //Add team to user
             const updatedUser = await User.findOneAndUpdate({ username: username },
-                { $set: { teamId: foundTeam } });
+                { $set: { teamId: foundTeam } }, {new: true});
             if (!updatedUser) {
                 throw new BadRequestError("No user found", 401);
             };
             //Add user to team
             await Team.findByIdAndUpdate({ _id: foundTeam._id },
-                { $addToSet: { users: updatedUser } });
+                { $addToSet: { users: updatedUser } }, {new: true});
             //Return token with teamId now added
             const token = createToken(updatedUser);
             return res.status(201).json({ token });
