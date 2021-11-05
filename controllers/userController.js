@@ -1,6 +1,7 @@
 const User = require('./../models/user');
 const { resizeImages } = require('../helpers/handlerFileUpload');
 const factory = require('../helpers/handlerFactory');
+const jwt = require("jsonwebtoken");
 
 exports.getUser = async (req, res, next) => {
     try {
