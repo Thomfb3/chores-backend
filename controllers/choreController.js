@@ -79,7 +79,7 @@ exports.getUnclaimedChoresForTeam = async (req, res, next) => {
         }
 
         const chores = await Chore.find({ teamId: teamId, assignee: null },
-            '_id title description pointValue status dueDate')
+            '_id title description pointValue status dueDate createdBy createdAt')
 
         res.status(200).json({
             status: 'success',
