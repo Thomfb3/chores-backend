@@ -88,7 +88,7 @@ exports.getAllPerTeam = Model =>
         throw new BadRequestError("There must be a teamId in body of request");
       }
 
-      filter = { team: teamId };
+      filter = { teamId: teamId };
       const features = new APIFeatures(Model.find(filter), req.query)
         .filter()
         .sort()
