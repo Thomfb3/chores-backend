@@ -134,12 +134,12 @@ exports.updateOneStatusActivity = Model =>
       const user = res.locals.user;
 
       if (statusUpdate) {
-        let activity = { user: user.username, event: `status updated to ${req.body.status}` };
+        let activity = { user: user._id, event: `status updated to ${req.body.status}` };
         const doc = await Model.findByIdAndUpdate(
           req.params.id,
           {
             $push: { activity: activity }
-          });
+          }, {status: req.body.status});
 
         if (!doc) {
           throw new NotFoundError('No document found with that ID');
