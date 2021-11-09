@@ -33,7 +33,7 @@ exports.resizeImages = modelName =>
         // 1) Main image
         req.body.imageCover = `${modelName}-${req.params.id}-${Date.now()}-cover.jpeg`;
         await sharp(req.files.imageCover[0].buffer)
-            .resize(2000, 1333)
+            .resize(700)
             .toFormat('jpeg')
             .jpeg({ quality: 90 })
             .toFile(`public/images/${modelName}s/${req.body.imageCover}`);

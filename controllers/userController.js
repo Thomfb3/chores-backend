@@ -34,7 +34,7 @@ exports.getAllUsersForTeam = async (req, res, next) => {
         res.status(200).json({
             status: 'success',
             data: users
-            
+
         });
     } catch (err) {
         next(err)
@@ -42,8 +42,35 @@ exports.getAllUsersForTeam = async (req, res, next) => {
 };
 
 
+exports.updateUser = async (req, res, next) => {
+    const { username, password } = req.body;
+    try {
+        const user = await User.findOne({username: username});
+        const authenticated = await user.authenticate(password, user.password);
+
+        if (!authenticated) {
+            throw new UnauthorizedError('Incorrect username or password');
+        }
+
+        const doc = await Model.findByIdAndUpdate(user._id, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!doc) {
+            throw new NotFoundError('No document found with that ID');
+        }
+
+        res.status(200).json({
+            status: 'success',
+            data: doc
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 exports.resizeUserImages = resizeImages("user");
 exports.createUser = factory.createOne(User)
-exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
 

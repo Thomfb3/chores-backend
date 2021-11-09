@@ -20,7 +20,7 @@ router
         UserController.getUser
     )
     .patch(
-        ensureAdminAndCorrectTeam,
+        ensureLoggedInAndCorrectTeam,
         uploadImages,
         UserController.resizeUserImages,
         UserController.updateUser
