@@ -2,6 +2,7 @@ const User = require('./../models/user');
 const { resizeImages } = require('../helpers/handlerFileUpload');
 const factory = require('../helpers/handlerFactory');
 const jwt = require("jsonwebtoken");
+const { BadRequestError, UnauthorizedError, NotFoundError } = require("../expressError");
 
 exports.getUser = async (req, res, next) => {
     try {
@@ -52,7 +53,7 @@ exports.updateUser = async (req, res, next) => {
             throw new UnauthorizedError('Incorrect username or password');
         }
 
-        const doc = await Model.findByIdAndUpdate(user._id, req.body, {
+        const doc = await User.findByIdAndUpdate(user._id, req.body, {
             new: true,
             runValidators: true
         });
