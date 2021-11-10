@@ -8,16 +8,20 @@ const catchAsync = require('../helpers/catchAsync');
  *  Authorization required: none **/
 exports.authenticateAndGetToken = catchAsync(async (req, res, next) => {
     try {
+
         const { username, password } = req.body;
+
         //authenticate the username and password
         const user = await User.findOne({ username: username });
         const authenticated = await user.authenticate(password, user.password);
-
-        if (authenticated) {
+ 
+        if (!authenticated) {
             //Return token with username and team if user has team
-            const token = createToken(user);
-            return res.json({ token });
+            throw new BadRequestError("Invalid Password", 401);
         };
+        const token = createToken(user);
+        return res.json({ token });
+        
     } catch (err) {
         return next(err);
     };

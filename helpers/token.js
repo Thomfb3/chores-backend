@@ -12,7 +12,6 @@ function createToken(user) {
     teamId: user.teamId || "none",
     isAdmin: user.role === "admin",
   };
-
   return jwt.sign(payload, SECRET_KEY);
 }
 

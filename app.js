@@ -18,8 +18,8 @@ const commentRoutes = require("./routes/comments");
 const morgan = require("morgan");
 const app = express();
 
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
