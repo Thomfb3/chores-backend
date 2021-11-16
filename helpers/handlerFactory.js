@@ -145,7 +145,6 @@ exports.updateOneStatusActivity = Model =>
           throw new NotFoundError('No document found with that ID');
         };
       }
-
       next();
     } catch (err) {
       next(err);
