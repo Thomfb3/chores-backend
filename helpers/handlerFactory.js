@@ -119,7 +119,7 @@ exports.oneCreatedActivity = (Model, modelName, id) =>
       if (!doc) {
         throw new NotFoundError('No document found with that ID');
       };
-      
+
       next();
     } catch (err) {
       next(err);
@@ -136,19 +136,19 @@ exports.updateOneStatusActivity = Model =>
       if (statusUpdate) {
         let activity = { user: userId, event: `status updated to ${status}`, status: status, date: date };
         const updates = {
-          $set: {status: status},
+          $set: { status: status },
           $push: { activity: activity }
         }
-        const doc = await Model.findByIdAndUpdate( req.params.id, updates );
+        const doc = await Model.findByIdAndUpdate(req.params.id, updates);
         if (!doc) {
           throw new NotFoundError('No document found with that ID');
         };
-      }
-      res.status(200).json({
-        status: 'success',
-        data: doc
-      });
 
+        res.status(200).json({
+          status: 'success',
+          data: doc
+        });
+      }
     } catch (err) {
       next(err);
     }
