@@ -42,15 +42,20 @@ router
         ChoreController.getChore
     )
     .patch(
-        ensureAdminAndCorrectTeam,
+        ensureLoggedInAndCorrectTeam,
         uploadImages,
         ChoreController.resizeChoreImages,
-        ChoreController.updateChoreStatusActivity,
         ChoreController.updateChore 
     )
     .delete(
         ensureAdminAndCorrectTeam,
         ChoreController.deleteChore
     );
+router
+    .route('/status/:id')
+    .patch(
+        ensureLoggedInAndCorrectTeam,
+        ChoreController.updateChoreStatusActivity,
+    )
 
 module.exports = router;

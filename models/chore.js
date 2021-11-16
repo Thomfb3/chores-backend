@@ -5,6 +5,11 @@ const ChoreActivitySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    status: {
+        type: String,
+        required: [true, "Chore activity requires an status"],
+        trim: true
+    },
     event: {
         type: String,
         required: [true, "Chore activity requires an event"],

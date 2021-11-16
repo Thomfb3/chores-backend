@@ -6,7 +6,7 @@ const factory = require('../helpers/handlerFactory');
 exports.createReward = async (req, res, next) => {
     try {
         const reward = await Reward.create(req.body);
-        const activity = { user: reward.createdBy, event: 'Reward created.' }
+        const activity = { user: reward.createdBy, event: 'Reward created.', status: req.body.status }
         const rewardWithActivity = await Reward.findByIdAndUpdate(
             reward._id,
             {

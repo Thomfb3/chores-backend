@@ -22,7 +22,11 @@ const UserSchema = new mongoose.Schema({
         lowercase: true,
         validate: [validator.isEmail, 'Please provide a valid email']
     },
-    points: {
+    currentPoints: {
+        type: Number,
+        default: 0
+    },
+    allTimePoints: {
         type: Number,
         default: 0
     },

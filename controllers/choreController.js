@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 exports.createChore = async (req, res, next) => {
     try {
         const chore = await Chore.create(req.body);
-        const activity = { user: chore.createdBy, event: 'Chore created.' }
+        const activity = { user: chore.createdBy, event: 'Chore created.', status: "Created" }
         const choreWithActivity = await Chore.findByIdAndUpdate(
             chore._id,
             {
@@ -87,7 +87,7 @@ exports.getUnclaimedChoresForTeam = async (req, res, next) => {
             data: chores
         });
     } catch (err) {
-        next(err)
+        next(err);
     }
 };
 

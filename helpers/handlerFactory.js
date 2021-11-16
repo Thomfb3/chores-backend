@@ -134,7 +134,7 @@ exports.updateOneStatusActivity = Model =>
       const user = res.locals.user;
 
       if (statusUpdate) {
-        let activity = { user: user._id, event: `status updated to ${req.body.status}` };
+        let activity = { user: user._id, event: `status updated to ${req.body.status}`, status: req.body.status };
         const doc = await Model.findByIdAndUpdate(
           req.params.id,
           {

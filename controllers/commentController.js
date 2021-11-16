@@ -30,7 +30,9 @@ exports.getAllCommentsForChore = async (req, res, next) => {
 
 exports.postComment = async (req, res, next) => {
   const choreId = req.params.choreId;
-  const comment = { ...req.body, choreId: choreId }
+  const date = Date.now();
+  const comment = { ...req.body, choreId: choreId, date: date }
+  
 
   try {
     const commentDoc = await Comment.create(comment);

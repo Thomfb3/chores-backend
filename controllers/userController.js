@@ -71,6 +71,43 @@ exports.updateUser = async (req, res, next) => {
     }
 }
 
+exports.updateUserPoints = async (req, res, next) => {
+    const { id } = req.params;
+    const { operation, points } = req.body;
+    try {
+        const user = await User.findById(id);
+        let updatedCurrentPoints = user.currentPoints;
+        let updatedAllTimePoints = user.updatedAllTimePoints;
+
+        if (operation === "subtract" && points > user.currentPoints) {
+            throw new BadRequestError("User doesn't have enough points.");
+        }
+        if (operation === "subtract") {
+            updatedCurrentPoints = user.currentPoints - points;
+        }
+        if (operation === "add") {
+            updatedCurrentPoints = user.currentPoints + points;
+            updatedAllTimePoints = user.allTimePoints + points;
+        }
+        console.log(updatedAllTimePoints)
+        const doc = await User.findByIdAndUpdate(id, {currentPoints: updatedCurrentPoints, allTimePoints: updatedAllTimePoints }, {
+            new: true,
+            runValidators: true
+        })
+
+        if (!doc) {
+            throw new NotFoundError('No document found with that ID');
+        }
+        res.status(200).json({
+            status: 'success',
+            data: doc
+        });
+
+    } catch (err) {
+        next(err)
+    }
+}
+
 exports.resizeUserImages = resizeImages("user");
 exports.createUser = factory.createOne(User)
 exports.deleteUser = factory.deleteOne(User);

@@ -30,4 +30,11 @@ router
         UserController.deleteUser
     );
 
+router 
+    .route('/points/:id')
+    .patch(
+        ensureLoggedInAndCorrectTeam,
+        UserController.updateUserPoints
+    )
+
 module.exports = router;
