@@ -29,20 +29,6 @@ router
     );
 
 router
-    .route("/user/:id")
-    .get(
-        ensureLoggedInAndCorrectTeam,
-        ChoreController.getAllChoresForUser
-    );
-
-router
-    .route('/status/:id')
-    .patch(
-        ensureLoggedInAndCorrectTeam,
-        ChoreController.updateChoreStatusActivity,
-    )
-
-router
     .route('/:id')
     .get(
         ensureLoggedInAndCorrectTeam,
@@ -58,6 +44,24 @@ router
         ensureAdminAndCorrectTeam,
         ChoreController.deleteChore
     );
+
+router
+    .route('/status/:id')
+    .patch(
+        ensureLoggedInAndCorrectTeam,
+        ChoreController.updateChoreStatusActivity,
+    );
+
+router
+    .route("/user/:id")
+    .get(
+        ensureLoggedInAndCorrectTeam,
+        ChoreController.getAllChoresForUser
+    );
+
+
+
+
 
 
 module.exports = router;

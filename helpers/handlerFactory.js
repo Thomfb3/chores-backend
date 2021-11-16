@@ -116,11 +116,10 @@ exports.oneCreatedActivity = (Model, modelName, id) =>
         {
           $push: { activity: activity }
         });
-
       if (!doc) {
         throw new NotFoundError('No document found with that ID');
       };
-
+      
       next();
     } catch (err) {
       next(err);
@@ -131,21 +130,25 @@ exports.updateOneStatusActivity = Model =>
   catchAsync(async (req, res, next) => {
     try {
       const statusUpdate = req.body.status ? req.body.status : null;
-      const user = res.locals.user;
+      const { userId, status } = req.body;
+      const date = Date.now();
 
       if (statusUpdate) {
-        let activity = { user: user._id, event: `status updated to ${req.body.status}`, status: req.body.status };
-        const doc = await Model.findByIdAndUpdate(
-          req.params.id,
-          {
-            $push: { activity: activity }
-          }, {status: req.body.status});
-
+        let activity = { user: userId, event: `status updated to ${status}`, status: status, date: date };
+        const updates = {
+          $set: {status: status},
+          $push: { activity: activity }
+        }
+        const doc = await Model.findByIdAndUpdate( req.params.id, updates );
         if (!doc) {
           throw new NotFoundError('No document found with that ID');
         };
       }
-      next();
+      res.status(200).json({
+        status: 'success',
+        data: doc
+      });
+
     } catch (err) {
       next(err);
     }
@@ -167,7 +170,11 @@ exports.updateOneInfoActivity = Model =>
         throw new NotFoundError('No document found with that ID');
       };
 
-      next();
+      res.status(200).json({
+        status: 'success',
+        data: doc
+      });
+
     } catch (err) {
       next(err);
     }
