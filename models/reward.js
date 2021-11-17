@@ -7,7 +7,7 @@ const RewardActivitySchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: [true, "Chore activity requires an status"],
+        required: [true, "Reward activity requires an status"],
         trim: true
     },
     event: {
