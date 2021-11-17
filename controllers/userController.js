@@ -8,7 +8,7 @@ exports.getUser = async (req, res, next) => {
     try {
         const userId = req.params.id
         const user = await User.findById(userId,
-            "_id username firstName lastName points role profileImage")
+            "_id username firstName lastName currentPoints allTimePoints role profileImage")
 
         res.status(200).json({
             status: 'success',
@@ -30,7 +30,7 @@ exports.getAllUsersForTeam = async (req, res, next) => {
             throw new BadRequestError("There must be a teamId in body of request");
         }
         const users = await User.find({ teamId: teamId },
-            "_id username firstName lastName points role profileImage")
+            "_id username firstName lastName currentPoints allTimePoints role profileImage")
 
         res.status(200).json({
             status: 'success',
