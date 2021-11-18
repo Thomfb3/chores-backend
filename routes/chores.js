@@ -59,9 +59,4 @@ router
         ChoreController.getAllChoresForUser
     );
 
-
-
-
-
-
 module.exports = router;

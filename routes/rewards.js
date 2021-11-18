@@ -27,12 +27,18 @@ router
         ensureAdminAndCorrectTeam,
         uploadImages,
         RewardController.resizeRewardImages,
-        RewardController.updateRewardStatusActivity,
         RewardController.updateReward
     )
     .delete(
         ensureAdminAndCorrectTeam,
         RewardController.deleteReward
+    );
+
+router
+    .route('/status/:id')
+    .patch(
+        ensureLoggedInAndCorrectTeam,
+        RewardController.updateRewardStatusActivity,
     );
 
 module.exports = router;
