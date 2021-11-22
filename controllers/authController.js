@@ -13,6 +13,11 @@ exports.authenticateAndGetToken = catchAsync(async (req, res, next) => {
 
         //authenticate the username and password
         const user = await User.findOne({ username: username });
+         
+        if (!user) {
+            //Return token with username and team if user has team
+            throw new BadRequestError("Invalid Username", 401);
+        };
         const authenticated = await user.authenticate(password, user.password);
  
         if (!authenticated) {
