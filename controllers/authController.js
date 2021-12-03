@@ -8,7 +8,6 @@ const catchAsync = require('../helpers/catchAsync');
  *  Authorization required: none **/
 exports.authenticateAndGetToken = catchAsync(async (req, res, next) => {
     try {
-
         const { username, password } = req.body;
 
         //authenticate the username and password
@@ -16,13 +15,13 @@ exports.authenticateAndGetToken = catchAsync(async (req, res, next) => {
          
         if (!user) {
             //Return token with username and team if user has team
-            throw new BadRequestError("Invalid Username", 401);
+            throw new BadRequestError("Invalid Username", 400);
         };
         const authenticated = await user.authenticate(password, user.password);
  
         if (!authenticated) {
             //Return token with username and team if user has team
-            throw new BadRequestError("Invalid Password", 401);
+            throw new BadRequestError("Invalid Password", 400);
         };
         const token = createToken(user);
         return res.json({ token });
@@ -36,12 +35,12 @@ exports.authenticateAndGetToken = catchAsync(async (req, res, next) => {
  *  Authorization required: none **/
 exports.registerAndGetToken = catchAsync(async (req, res, next) => {
     try {
-        if(req.password.length < 8) {
-            throw new BadRequestError("Password must be at least 8 characters.", 401);
+        if(req.body.password.length < 8) {
+            throw new BadRequestError("Password must be at least 8 characters.", 400);
         }
 
-        if(req.username.length < 5) {
-            throw new BadRequestError("Username must be at least 5 characters.", 401);
+        if(req.body.username.length < 5) {
+            throw new BadRequestError("Username must be at least 5 characters.", 400);
         }
 
         const newUser = await User.create({ ...req.body, role: "user" });
@@ -57,20 +56,19 @@ exports.registerAndGetToken = catchAsync(async (req, res, next) => {
  * Authorization required: user must be logged in **/
 exports.createTeamAndGetToken = catchAsync(async (req, res, next) => {
     try {
-
-        if(req.teamPassword.length < 8) {
-            throw new BadRequestError("Team Password must be at least 8 characters.", 401);
+        if(req.body.teamPassword.length < 8) {
+            throw new BadRequestError("Team Password must be at least 8 characters.", 400);
         }
 
-        if(req.teamName.length < 5) {
-            throw new BadRequestError("Team Name must be at least 5 characters.", 401);
+        if(req.body.teamName.length < 5) {
+            throw new BadRequestError("Team Name must be at least 5 characters.", 400);
         }
 
         const { teamName, teamPassword, username } = req.body;
         //Find user
         const user = await User.findOne({ username: username });
         if (!user) {
-            throw new BadRequestError("Username not found", 401);
+            throw new BadRequestError("Username not found", 400);
         }
         //Create team and add user to team
         const newTeam = await Team.create({ name: teamName, password: teamPassword, users: [user] });
@@ -94,7 +92,7 @@ exports.joinTeamAndGetToken = catchAsync(async (req, res, next) => {
         //Find team
         const foundTeam = await Team.findOne({ name: teamName })
         if (!foundTeam) {
-            throw new BadRequestError("Team not found", 401)
+            throw new BadRequestError("Team not found", 400)
         }
         //Authenticate teamName and  teamPassword
         const authenticated = await foundTeam.authenticate(teamPassword, foundTeam.password);
@@ -103,7 +101,7 @@ exports.joinTeamAndGetToken = catchAsync(async (req, res, next) => {
             const updatedUser = await User.findOneAndUpdate({ username: username },
                 { $set: { teamId: foundTeam } }, {new: true});
             if (!updatedUser) {
-                throw new BadRequestError("No user found", 401);
+                throw new BadRequestError("No user found", 400);
             };
             //Add user to team
             await Team.findByIdAndUpdate({ _id: foundTeam._id },
@@ -112,7 +110,7 @@ exports.joinTeamAndGetToken = catchAsync(async (req, res, next) => {
             const token = createToken(updatedUser);
             return res.status(201).json({ token });
         } else {
-            throw new BadRequestError("Invalid Team password", 401);
+            throw new BadRequestError("Invalid Team password", 400);
         }
     } catch (err) {
         return next(err);
