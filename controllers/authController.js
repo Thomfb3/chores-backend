@@ -36,6 +36,14 @@ exports.authenticateAndGetToken = catchAsync(async (req, res, next) => {
  *  Authorization required: none **/
 exports.registerAndGetToken = catchAsync(async (req, res, next) => {
     try {
+        if(req.password.length < 8) {
+            throw new BadRequestError("Password must be at least 8 characters.", 401);
+        }
+
+        if(req.username.length < 5) {
+            throw new BadRequestError("Username must be at least 5 characters.", 401);
+        }
+
         const newUser = await User.create({ ...req.body, role: "user" });
         const token = createToken(newUser);
         //Return token token with username and no team
@@ -49,6 +57,15 @@ exports.registerAndGetToken = catchAsync(async (req, res, next) => {
  * Authorization required: user must be logged in **/
 exports.createTeamAndGetToken = catchAsync(async (req, res, next) => {
     try {
+
+        if(req.teamPassword.length < 8) {
+            throw new BadRequestError("Team Password must be at least 8 characters.", 401);
+        }
+
+        if(req.teamName.length < 5) {
+            throw new BadRequestError("Team Name must be at least 5 characters.", 401);
+        }
+
         const { teamName, teamPassword, username } = req.body;
         //Find user
         const user = await User.findOne({ username: username });
