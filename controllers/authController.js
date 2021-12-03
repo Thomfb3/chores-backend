@@ -48,7 +48,9 @@ exports.registerAndGetToken = catchAsync(async (req, res, next) => {
         //Return token token with username and no team
         return res.status(201).json({ token });
     } catch (err) {
-        return next(err);
+        return next(err.code === 11000 
+            ?   new BadRequestError('Username or Email already exist', 400)
+            :   err);
     };
 });
 
@@ -80,7 +82,9 @@ exports.createTeamAndGetToken = catchAsync(async (req, res, next) => {
         const token = createToken(updatedUser);
         return res.status(201).json({ token });
     } catch (err) {
-        return next(err);
+        return next(err.code === 11000 
+            ?   new BadRequestError('Team Name already exist', 400)
+            :   err);
     };
 });
 
