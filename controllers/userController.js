@@ -53,7 +53,13 @@ exports.updateUser = async (req, res, next) => {
             throw new UnauthorizedError('Incorrect username or password');
         }
 
-        const doc = await User.findByIdAndUpdate(user._id, req.body, {
+        const userData = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            profileImage: req.body.profileImage
+        };
+
+        const doc = await User.findByIdAndUpdate(user._id, userData, {
             new: true,
             runValidators: true
         });

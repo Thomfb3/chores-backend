@@ -82,7 +82,8 @@ exports.createTeamAndGetToken = catchAsync(async (req, res, next) => {
         const token = createToken(updatedUser);
         return res.status(201).json({ token });
     } catch (err) {
-        return next(err.code === 11000 
+        return next(
+            err.code === 11000 
             ?   new BadRequestError('Team Name already exist', 400)
             :   err);
     };
