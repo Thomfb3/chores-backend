@@ -61,7 +61,8 @@ exports.updateUser = async (req, res, next) => {
 
         const doc = await User.findByIdAndUpdate(user._id, userData, {
             new: true,
-            runValidators: true
+            runValidators: true,
+            select:  "_id username firstName lastName currentPoints allTimePoints role profileImage"
         });
 
         if (!doc) {
