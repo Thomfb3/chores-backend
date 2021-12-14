@@ -49,7 +49,6 @@ describe("RewardController.getReward", () => {
         Reward.findById.mockReturnValue(newReward);
         await RewardController.getReward(req, res, next);
         expect(res.statusCode).toBe(200);
-        console.log(res._getJSONData().data)
         expect(res._getJSONData().data.title).toContain(newReward.title);
         expect(res._isEndCalled()).toBeTruthy();
     });

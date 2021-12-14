@@ -62,7 +62,7 @@ describe("UserController.getUser", () => {
     it("should call User Model create", async () => {
         req.params.id = userId;
         await UserController.getUser(req, res, next);
-        expect(User.findById).toBeCalledWith(userId, "_id username firstName lastName points role profileImage");
+        expect(User.findById).toBeCalledWith(userId, "_id username firstName lastName currentPoints allTimePoints role profileImage");
     });
     it("should return json body and response code 200", async () => {
         User.findById.mockReturnValue(newUser);
@@ -84,7 +84,6 @@ describe("UserController.getUser", () => {
         await UserController.getUser(req, res, next);
         expect(next).toBeCalledWith(errorMessage);
     });
-
 });
 
 
@@ -104,45 +103,7 @@ describe("UserController.getAllUsersForTeam", () => {
         await UserController.getUser(req, res, next);
         expect(next).toBeCalledWith(errorMessage);
     });
-
 });
-
-describe("UserController.updateUser", () => {
-    it("should have a updateUser function", () => {
-        expect(typeof UserController.updateUser).toBe("function");
-    });
-    it("should update with User.findByIdAndUpdate", async () => {
-        req.params.id = userId;
-        req.body = newUser;
-        await UserController.updateUser(req, res, next);
-        expect(User.findByIdAndUpdate).toHaveBeenCalledWith(userId, newUser, {
-            "new": true,
-            "runValidators": true
-        });
-    });
-    it("should return a response with json data and http code 200", async () => {
-        req.params.id = userId;
-        req.body = newUser;
-        User.findByIdAndUpdate.mockReturnValue(newUser);
-        await UserController.updateUser(req, res, next);
-        expect(res._isEndCalled()).toBeTruthy();
-        expect(res.statusCode).toBe(200);
-        expect(res._getJSONData()).toStrictEqual(
-            {
-                status: 'success',
-                data:  newUser
-            }
-        );
-    });
-    it("should handle errors", async () => {
-        const errorMessage = { message: "Error" };
-        const rejectedPromise = Promise.reject(errorMessage);
-        User.findByIdAndUpdate.mockReturnValue(rejectedPromise);
-        await UserController.updateUser(req, res, next);
-        expect(next).toHaveBeenCalledWith(errorMessage);
-    });
-});
-
 
 describe("UserController.deleteUser", () => {
     it("should have a deleteUser function", () => {

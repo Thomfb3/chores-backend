@@ -2,5 +2,9 @@
     "username": "Test123",
     "firstName": "Test",
     "email": "test@test.com",
-    "password": "password123"
+    "password": "password123",
+    "role" : "admin",
+    "profileImage" : "defaultProfile.jpg",
+    "currentPoints" : 0,
+    "allTimePoints" : 0
 }

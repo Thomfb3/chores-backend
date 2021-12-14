@@ -72,7 +72,7 @@ describe('Team Model Test Suite', () => {
         await Team.updateOne({_id: savedTeam._id},{ $push: { users: savedUser2._id} })
         const foundTeam = await Team.findById(savedTeam._id)
     
-        expect(foundTeam.name).toBe("Test3");
+        expect(foundTeam.name).toBe("Testing3");
         expect(foundTeam.users.length).toBe(2);
     });
 

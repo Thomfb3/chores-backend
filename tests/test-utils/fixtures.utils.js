@@ -1,26 +1,26 @@
 exports.fakeUserData = {
-  firstName: 'Test',
+  firstName: 'Tester',
   username: 'testUser',
   email: 'test@user.com',
   password: 'password',
   teamId: '61722f587b4914ef4000a536'
 };
 exports.fakeUserData2 = {
-  firstName: 'Test',
+  firstName: 'Tester',
   username: 'testUser2',
   email: 'test2@user.com',
   password: 'password',
   teamId: '61722f587b4914ef4000a536'
 };
 exports.fakeUserData3 = {
-  firstName: 'Test',
+  firstName: 'Tester',
   username: 'testUser3',
   email: 'test3@user.com',
   password: 'password',
   teamId: '61722f587b4914ef4000a536'
 };
 exports.fakeUserData4 = {
-  firstName: 'Test',
+  firstName: 'Tester',
   username: 'testUser4',
   email: 'test4@user.com',
   password: 'password',
@@ -28,19 +28,19 @@ exports.fakeUserData4 = {
 };
 
 exports.fakeTeamData = {
-  name: 'Test',
+  name: 'Testing',
   password: 'password'
 };
 exports.fakeTeamData2 = {
-  name: 'Test2',
+  name: 'Testing2',
   password: 'password'
 };
 exports.fakeTeamData3 = {
-  name: 'Test3',
+  name: 'Testing3',
   password: 'password'
 };
 exports.fakeTeamData4 = {
-  name: 'Test4',
+  name: 'Testing4',
   password: 'password'
 };
 
@@ -59,7 +59,8 @@ exports.fakeChoreData = {
   activity: [
     {
       user: "61722f1f7b4914ef4000a533",
-      event: "Chore created"
+      event: "Chore created",
+      status: "Created"
     }
   ]
 }
@@ -78,7 +79,8 @@ exports.fakeRewardData = {
   activity: [
     {
       user: "61722f1f7b4914ef4000a533",
-      event: "Reward created"
+      event: "Reward created",
+      status: "Created"
     }
   ]
 }
