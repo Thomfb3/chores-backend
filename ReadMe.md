@@ -1,7 +1,7 @@
 # ChoreBoard BackEnd
 
 ## Objective
-This is the Frontend of an application called ChoreBoard. In this application, users can create teams with household chores can be created and assigned to members of their team. Completed chores assigned in the app allows users to score points. Points in the app can be used to redeem rewards created and sponsored by the team manager. The concept is to "gamify" household chores.
+This is the Backend of an application called ChoreBoard. In this application, users can create teams with household chores can be created and assigned to members of their team. Completed chores assigned in the app allows users to score points. Points in the app can be used to redeem rewards created and sponsored by the team manager. The concept is to "gamify" household chores.
 
 ### `nodemon server.js`
 
